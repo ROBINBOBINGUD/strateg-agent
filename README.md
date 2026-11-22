@@ -22,7 +22,7 @@
 Windows (PowerShell), по одной команде:
 
 ```powershell
-git clone <адрес репозитория> strateg
+git clone https://github.com/ROBINBOBINGUD/strateg-agent.git strateg
 cd strateg
 python -m unittest discover -s tools/tests
 claude
@@ -31,7 +31,7 @@ claude
 macOS и Linux:
 
 ```bash
-git clone <адрес репозитория> strateg
+git clone https://github.com/ROBINBOBINGUD/strateg-agent.git strateg
 cd strateg
 python3 -m unittest discover -s tools/tests
 claude
