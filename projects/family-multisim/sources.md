@@ -35,3 +35,6 @@
 | S-031 | synthetic | Модельный респондент: слабо вовлечённый организатор 36 лет | outputs/interviews/synthetic-skeptik.md |  |  | 2026-11-22 | C |  |
 | S-032 | synthetic | Модельные респонденты, раунд 2: пенсионер, подросток, слабо вовлечённый организатор (тексты версии 2) | outputs/interviews/synthetic-pensioner-r2.md; outputs/interviews/synthetic-podrostok-r2.md; outputs/interviews/synthetic-skeptik-r2.md |  |  | 2026-11-22 | C |  |
 | S-033 | calc | Расчёт v7: экономика варианта B без новых номеров, отдельный сценарий с новыми номерами, граница решения, ориентир третьего года | analysis/v7_produkt_b.py |  |  | 2026-11-22 | B |  |
+| S-034 | calc | Расчёт v8: выборка, поток, календарь и показатели работы пилота B | analysis/v8_plan_proverki.py |  |  | 2026-11-23 | B |  |
+| S-035 | calc | Расчёт v8b: выборка и срок проверки нового экрана приглашения | analysis/v8b_priglashenie.py |  |  | 2026-11-23 | B |  |
+| S-036 | calc | Расчёт v8c: вложения при полном составе работ, этапы запроса, пять показателей с учётом охвата пилота | analysis/v8c_ohvat_i_vlozheniya.py |  |  | 2026-11-23 | B |  |

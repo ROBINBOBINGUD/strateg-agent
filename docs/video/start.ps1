@@ -17,7 +17,7 @@ Start-Sleep -Seconds 4
 $stamp = Get-Date
 $file = Join-Path $raw ("zapis-" + $stamp.ToString('HHmmss') + ".mkv")
 $filter = "gfxcapture=window_title='(?i)strateg-demo':max_framerate=8"
-$ffArgs = "-hide_banner -loglevel error -y -f lavfi -i `"$filter`" -vf `"hwdownload,format=bgra,scale=1920:-2:flags=lanczos,format=yuv420p`" -c:v libx264 -preset veryfast -crf 23 -g 40 -t 7200 `"$file`""
+$ffArgs = "-hide_banner -loglevel error -y -f lavfi -i `"$filter`" -vf `"hwdownload,format=bgra,scale=1920:-2:flags=lanczos,format=yuv420p`" -c:v libx264 -preset veryfast -tune zerolatency -crf 23 -g 40 -flush_packets 1 -t 7200 `"$file`""
 $proc = Start-Process ffmpeg -ArgumentList $ffArgs -WindowStyle Hidden -PassThru
 Start-Sleep -Seconds 3
 if ($proc.HasExited) { throw "ffmpeg не начал запись (код $($proc.ExitCode))" }

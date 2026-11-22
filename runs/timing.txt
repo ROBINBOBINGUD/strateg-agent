@@ -2,3 +2,5 @@ zahod-1-postanovka: код 0, 123 c
 baseline-chat: код 0, 406 c
 zahod-2-issledovanie-varianty: код 0, 1071 c
 zahod-3-strategii-sborka: код 0, 671 c
+zahod-4-proverka-sborka: код 0, 1112 c
+zahod-5-priemka: код 0, 51 c
