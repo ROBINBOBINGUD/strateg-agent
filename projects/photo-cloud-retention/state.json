@@ -1,0 +1,116 @@
+{
+  "id": "photo-cloud-retention",
+  "title": "Падение продления подписки облачного фотохранилища на второй месяц",
+  "created": "2026-11-22T19:44:42+03:00",
+  "updated": "2026-11-22T19:49:27+03:00",
+  "current_step": "research",
+  "steps": [
+    {
+      "id": "intake",
+      "title": "Постановка задачи",
+      "status": "done",
+      "started": "2026-11-22T19:45:15+03:00",
+      "finished": "2026-11-22T19:47:46+03:00",
+      "outputs": [
+        "outputs/01-postanovka.md"
+      ],
+      "note": ""
+    },
+    {
+      "id": "collect",
+      "title": "Сбор материалов",
+      "status": "done",
+      "started": "2026-11-22T19:47:49+03:00",
+      "finished": "2026-11-22T19:49:16+03:00",
+      "outputs": [
+        "sources.jsonl",
+        "evidence.jsonl",
+        "outputs/02-plan-issledovaniya.md"
+      ],
+      "note": ""
+    },
+    {
+      "id": "research",
+      "title": "Исследование и картина ситуации",
+      "status": "in_progress",
+      "started": "2026-11-22T19:49:19+03:00",
+      "finished": null,
+      "outputs": [],
+      "note": "План исследования составлен; сбор открытых источников не запущен по просьбе руководителя"
+    },
+    {
+      "id": "options",
+      "title": "Варианты",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "product",
+      "title": "Продуктовая стратегия",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "comms",
+      "title": "Коммуникационная стратегия",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "testplan",
+      "title": "План проверки",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "final",
+      "title": "Сборка и самопроверка",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "support",
+      "title": "Поддержка решения",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    }
+  ],
+  "waiting_for_human": {
+    "question": "План исследования готов. Запускать открытую часть исследования (вопросы 2-5 по открытым источникам и сценарный расчёт) до выгрузки?",
+    "options": [
+      "Запускать сейчас",
+      "Ждать выгрузку",
+      "Изменить план"
+    ],
+    "step": "research",
+    "since": "2026-11-22T19:49:27+03:00"
+  },
+  "gates": [
+    {
+      "step": "intake",
+      "question": "Подтвердите постановку и ответьте на вопросы",
+      "options": [],
+      "answer": "1: оплата с баланса телефона, первый месяц за 1 рубль. 2: в августе запустили акцию у блогеров, о других изменениях не знает. 3: выгрузку сделают аналитики за 2-3 недели. 4: решает сам руководитель, срок 4 недели. Просьба: закрыть постановку, собрать материалы, составить план исследования и остановиться на плане, указав, что можно узнать до выгрузки.",
+      "asked": "2026-11-22T19:45:47+03:00",
+      "answered": "2026-11-22T19:46:47+03:00"
+    }
+  ]
+}
