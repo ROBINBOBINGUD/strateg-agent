@@ -1,17 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 234" font-family="'Segoe UI', 'Noto Sans', Arial, sans-serif" font-size="13" fill="#1c2128">
-<rect width="1000" height="234" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 372" font-family="'Segoe UI', 'Noto Sans', Arial, sans-serif" font-size="13" fill="#1c2128">
+<rect width="1000" height="372" fill="#ffffff"/>
 <text x="20" y="26" font-size="15" font-weight="600">Стоимость заходов по моделям, USD в ценах API</text>
 <text x="20" y="45" fill="#57606a" font-size="12">У конца строки — сумма и время захода</text>
-<line x1="300.0" y1="58" x2="300.0" y2="156" stroke="#e3e7eb" stroke-width="1"/>
-<text x="300.0" y="174" text-anchor="middle" fill="#57606a" font-size="12">0</text>
-<line x1="427.5" y1="58" x2="427.5" y2="156" stroke="#e3e7eb" stroke-width="1"/>
-<text x="427.5" y="174" text-anchor="middle" fill="#57606a" font-size="12">2</text>
-<line x1="555.0" y1="58" x2="555.0" y2="156" stroke="#e3e7eb" stroke-width="1"/>
-<text x="555.0" y="174" text-anchor="middle" fill="#57606a" font-size="12">4</text>
-<line x1="682.5" y1="58" x2="682.5" y2="156" stroke="#e3e7eb" stroke-width="1"/>
-<text x="682.5" y="174" text-anchor="middle" fill="#57606a" font-size="12">6</text>
-<line x1="810.0" y1="58" x2="810.0" y2="156" stroke="#e3e7eb" stroke-width="1"/>
-<text x="810.0" y="174" text-anchor="middle" fill="#57606a" font-size="12">8</text>
+<line x1="300.0" y1="58" x2="300.0" y2="294" stroke="#e3e7eb" stroke-width="1"/>
+<text x="300.0" y="312" text-anchor="middle" fill="#57606a" font-size="12">0</text>
+<line x1="427.5" y1="58" x2="427.5" y2="294" stroke="#e3e7eb" stroke-width="1"/>
+<text x="427.5" y="312" text-anchor="middle" fill="#57606a" font-size="12">2</text>
+<line x1="555.0" y1="58" x2="555.0" y2="294" stroke="#e3e7eb" stroke-width="1"/>
+<text x="555.0" y="312" text-anchor="middle" fill="#57606a" font-size="12">4</text>
+<line x1="682.5" y1="58" x2="682.5" y2="294" stroke="#e3e7eb" stroke-width="1"/>
+<text x="682.5" y="312" text-anchor="middle" fill="#57606a" font-size="12">6</text>
+<line x1="810.0" y1="58" x2="810.0" y2="294" stroke="#e3e7eb" stroke-width="1"/>
+<text x="810.0" y="312" text-anchor="middle" fill="#57606a" font-size="12">8</text>
 <text x="288" y="91.5" text-anchor="end">1. Постановка</text>
 <path d="M300.0 76.0 h52.2 a4.0 4.0 0 0 1 4.0 4.0 v14.0 a4.0 4.0 0 0 1 -4.0 4.0 h-52.2 z" fill="#2a78d6"/>
 <text x="366.2" y="91.5">0,88 USD · 2,0 мин</text>
@@ -20,11 +20,23 @@
 <rect x="613.9" y="122.0" width="52.5" height="22" fill="#eb6834"/>
 <path d="M668.4 122.0 h21.5 a4.0 4.0 0 0 1 4.0 4.0 v14.0 a4.0 4.0 0 0 1 -4.0 4.0 h-21.5 z" fill="#1baf7a"/>
 <text x="703.9" y="137.5">6,18 USD · 12,6 мин</text>
-<line x1="300" y1="58" x2="300" y2="156" stroke="#8c959f" stroke-width="1"/>
-<rect x="20" y="196" width="12" height="12" rx="2" fill="#2a78d6"/>
-<text x="38" y="207" fill="#57606a" font-size="12.5">Opus 5.5 — основной агент и критик</text>
-<rect x="291.4" y="196" width="12" height="12" rx="2" fill="#eb6834"/>
-<text x="309.4" y="207" fill="#57606a" font-size="12.5">Sonnet 5.5 — исследователи и аналитик</text>
-<rect x="584.0999999999999" y="196" width="12" height="12" rx="2" fill="#1baf7a"/>
-<text x="602.0999999999999" y="207" fill="#57606a" font-size="12.5">Haiku 5.5 — веб-инструменты и респонденты</text>
+<text x="288" y="183.5" text-anchor="end">3. Стратегии, план проверки, сборка</text>
+<rect x="300.0" y="168.0" width="234.5" height="22" fill="#2a78d6"/>
+<rect x="536.5" y="168.0" width="42.8" height="22" fill="#eb6834"/>
+<path d="M581.3 168.0 h1.0 a0.975375 0.975375 0 0 1 0.975375 0.975375 v20.0 a0.975375 0.975375 0 0 1 -0.975375 0.975375 h-1.0 z" fill="#1baf7a"/>
+<text x="593.2" y="183.5">4,44 USD · 5,2 мин</text>
+<text x="288" y="229.5" text-anchor="end">zahod-4-proverka-sborka</text>
+<rect x="300.0" y="214.0" width="346.0" height="22" fill="#2a78d6"/>
+<path d="M648.0 214.0 h12.7 a4.0 4.0 0 0 1 4.0 4.0 v14.0 a4.0 4.0 0 0 1 -4.0 4.0 h-12.7 z" fill="#eb6834"/>
+<text x="674.6" y="229.5">5,72 USD · 18,4 мин</text>
+<text x="288" y="275.5" text-anchor="end">zahod-5-priemka</text>
+<path d="M300.0 260.0 h10.7 a4.0 4.0 0 0 1 4.0 4.0 v14.0 a4.0 4.0 0 0 1 -4.0 4.0 h-10.7 z" fill="#2a78d6"/>
+<text x="324.7" y="275.5">0,23 USD · 0,7 мин</text>
+<line x1="300" y1="58" x2="300" y2="294" stroke="#8c959f" stroke-width="1"/>
+<rect x="20" y="334" width="12" height="12" rx="2" fill="#2a78d6"/>
+<text x="38" y="345" fill="#57606a" font-size="12.5">Opus 5.5 — основной агент и критик</text>
+<rect x="291.4" y="334" width="12" height="12" rx="2" fill="#eb6834"/>
+<text x="309.4" y="345" fill="#57606a" font-size="12.5">Sonnet 5.5 — исследователи и аналитик</text>
+<rect x="584.0999999999999" y="334" width="12" height="12" rx="2" fill="#1baf7a"/>
+<text x="602.0999999999999" y="345" fill="#57606a" font-size="12.5">Haiku 5.5 — веб-инструменты и респонденты</text>
 </svg>

@@ -5,3 +5,4 @@ zahod-3-strategii-sborka: код 0, 671 c
 zahod-4-proverka-sborka: код 0, 1112 c
 zahod-5-priemka: код 0, 51 c
 codex-perenos: код 0, 464 c
+codex-ocenka: код 0, 165 c

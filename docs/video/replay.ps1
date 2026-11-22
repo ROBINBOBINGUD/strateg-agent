@@ -1,4 +1,4 @@
-# Окно для записи воспроизведения сеансов агента. Запускается Claude; ffmpeg записывает только это окно.
+﻿# Окно для записи воспроизведения сеансов агента. Запускается Claude; ffmpeg записывает только это окно.
 $host.UI.RawUI.WindowTitle = 'Strateg-demo'
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $env:PYTHONIOENCODING = 'utf-8'
