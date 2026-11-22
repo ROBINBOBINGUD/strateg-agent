@@ -1,0 +1,92 @@
+{
+  "id": "_template",
+  "title": "",
+  "created": "2026-11-22T19:11:51+03:00",
+  "updated": "2026-11-22T19:11:51+03:00",
+  "current_step": "intake",
+  "steps": [
+    {
+      "id": "intake",
+      "title": "Постановка задачи",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "collect",
+      "title": "Сбор материалов",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "research",
+      "title": "Исследование и картина ситуации",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "options",
+      "title": "Варианты",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "product",
+      "title": "Продуктовая стратегия",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "comms",
+      "title": "Коммуникационная стратегия",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "testplan",
+      "title": "План проверки",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "final",
+      "title": "Сборка и самопроверка",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    },
+    {
+      "id": "support",
+      "title": "Поддержка решения",
+      "status": "pending",
+      "started": null,
+      "finished": null,
+      "outputs": [],
+      "note": ""
+    }
+  ],
+  "waiting_for_human": null,
+  "gates": []
+}

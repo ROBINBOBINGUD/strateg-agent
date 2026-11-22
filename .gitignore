@@ -1,0 +1,24 @@
+# секреты и токены
+.env
+.env.*
+*.key
+*.pem
+*.token
+credentials*.json
+.claude/settings.local.json
+.claude/*.local.*
+
+# среды и кэш
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.playwright-mcp/
+
+# логи и временные файлы
+*.log
+*.tmp
+tmp/
+runs/raw/
+.DS_Store
+Thumbs.db
