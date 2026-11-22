@@ -29,3 +29,9 @@
 | S-025 | site | Доля офлайн-платежей за мобильную связь обновила минимум | https://www.comnews.ru/content/238571/2025-04-01/2025-w14/1010/dolya-oflayn-platezhey-za-mobilnuyu-svyaz-obnovila-istoricheskiy-minimum | ComNews (по данным МегаФона) | 2025-04-01 | 2026-11-22 | C | Понижено: только фрагмент выдачи (В4) |
 | S-026 | calc | Расчёт разрывов, вклада удержания и потока пилота | analysis/v5_razryvy_i_potok.py | Стратег (analyst) |  | 2026-11-22 | B | Скрипт на учебных числах S-002 и допущениях E-029, E-033; результат analysis/v5_razryvy_i_potok.md |
 | S-027 | calc | Сравнение вариантов и прогноз пяти показателей | analysis/v6_varianty.py | Стратег |  | 2026-11-22 | B | Скрипт на учебных числах S-002 и допущениях E-029, E-033 и параметрах вариантов; исправлен после критика; результат analysis/v6_varianty.md |
+| S-028 | synthetic | Модельный респондент: организатор, бухгалтер около 45 лет | outputs/interviews/synthetic-organizator.md |  |  | 2026-11-22 | C |  |
+| S-029 | synthetic | Модельный респондент: участник-пенсионер 71 год | outputs/interviews/synthetic-pensioner.md |  |  | 2026-11-22 | C |  |
+| S-030 | synthetic | Модельный респондент: участник-подросток 16 лет | outputs/interviews/synthetic-podrostok.md |  |  | 2026-11-22 | C |  |
+| S-031 | synthetic | Модельный респондент: слабо вовлечённый организатор 36 лет | outputs/interviews/synthetic-skeptik.md |  |  | 2026-11-22 | C |  |
+| S-032 | synthetic | Модельные респонденты, раунд 2: пенсионер, подросток, слабо вовлечённый организатор (тексты версии 2) | outputs/interviews/synthetic-pensioner-r2.md; outputs/interviews/synthetic-podrostok-r2.md; outputs/interviews/synthetic-skeptik-r2.md |  |  | 2026-11-22 | C |  |
+| S-033 | calc | Расчёт v7: экономика варианта B без новых номеров, отдельный сценарий с новыми номерами, граница решения, ориентир третьего года | analysis/v7_produkt_b.py |  |  | 2026-11-22 | B |  |

@@ -2,8 +2,8 @@
   "id": "family-multisim",
   "title": "Связь для близких и собственных устройств: кому помогать первым и стоит ли пилот",
   "created": "2026-11-22T19:16:04+03:00",
-  "updated": "2026-11-22T19:48:53+03:00",
-  "current_step": "product",
+  "updated": "2026-11-22T19:58:39+03:00",
+  "current_step": "testplan",
   "steps": [
     {
       "id": "intake",
@@ -56,19 +56,23 @@
     {
       "id": "product",
       "title": "Продуктовая стратегия",
-      "status": "in_progress",
+      "status": "done",
       "started": "2026-11-22T19:48:53+03:00",
-      "finished": null,
-      "outputs": [],
+      "finished": "2026-11-22T19:57:23+03:00",
+      "outputs": [
+        "outputs/05-produktovaya-strategiya.md"
+      ],
       "note": ""
     },
     {
       "id": "comms",
       "title": "Коммуникационная стратегия",
-      "status": "pending",
-      "started": null,
-      "finished": null,
-      "outputs": [],
+      "status": "done",
+      "started": "2026-11-22T19:57:26+03:00",
+      "finished": "2026-11-22T19:58:39+03:00",
+      "outputs": [
+        "outputs/06-kommunikacionnaya-strategiya.md"
+      ],
       "note": ""
     },
     {
