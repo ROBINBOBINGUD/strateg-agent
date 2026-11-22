@@ -1,4 +1,7 @@
-"""Stop: сохраняет токены, оценку стоимости и длительность сеанса в costs.jsonl активного проекта.
+"""Stop и PreToolUse(Bash): сохраняет токены, оценку стоимости и длительность сеанса в costs.jsonl проекта.
+
+При остановке — всегда; перед командами `strateg.py cost` и `strateg.py status` — чтобы отчёт агента
+о расходах включал текущий сеанс, а не только завершённые.
 
 Источник — транскрипт сеанса Claude Code (путь приходит в событии). Сообщения считаются по одному разу
 (по id), учитываются и транскрипты субагентов, если они лежат рядом. Стоимость — оценка по tools/prices.json;
@@ -55,6 +58,11 @@ def collect(paths) -> tuple:
 
 def main() -> None:
     event = read_event()
+    if event.get("hook_event_name") == "PreToolUse":
+        # Перед командами cost и status обновляем запись текущего сеанса, чтобы агент видел живые числа.
+        command = str((event.get("tool_input") or {}).get("command", ""))
+        if "strateg.py cost" not in command and "strateg.py status" not in command:
+            return
     project = active_project()
     module = strateg()
     transcript = event.get("transcript_path")

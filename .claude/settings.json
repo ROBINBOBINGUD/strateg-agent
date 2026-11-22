@@ -6,6 +6,8 @@
       "Bash(python3 tools/strateg.py *)",
       "Bash(python projects/*)",
       "Bash(python3 projects/*)",
+      "PowerShell(python tools/strateg.py *)",
+      "PowerShell(python projects/*)",
       "WebSearch",
       "WebFetch"
     ],
@@ -34,6 +36,16 @@
             "type": "command",
             "command": "python \"${CLAUDE_PROJECT_DIR}/tools/hooks/guard.py\" 2>/dev/null || python3 \"${CLAUDE_PROJECT_DIR}/tools/hooks/guard.py\"",
             "timeout": 20
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PROJECT_DIR}/tools/hooks/stop_cost.py\" 2>/dev/null || python3 \"${CLAUDE_PROJECT_DIR}/tools/hooks/stop_cost.py\"",
+            "timeout": 30
           }
         ]
       }

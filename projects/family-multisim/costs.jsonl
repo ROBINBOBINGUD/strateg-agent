@@ -1,0 +1,1 @@
+{"ts": "2026-11-22T19:17:48+03:00", "session": "2c3d44a5-58e3-4bfc-b559-25780afcf2e1", "source": "headless", "label": "zahod-1-postanovka", "duration_s": 117.789, "cost_usd": 0.8820832, "models": {"claude-opus-5-5": {"input": 24, "output": 8145, "cache_read": 690276, "cache_write": 72629, "cost_usd": 0.8820832}}}

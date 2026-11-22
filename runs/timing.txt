@@ -1,0 +1,1 @@
+zahod-1-postanovka: exit=0, 123 c
