@@ -2,32 +2,38 @@
   "id": "family-multisim",
   "title": "Связь для близких и собственных устройств: кому помогать первым и стоит ли пилот",
   "created": "2026-11-22T19:16:04+03:00",
-  "updated": "2026-11-22T19:17:02+03:00",
-  "current_step": "intake",
+  "updated": "2026-11-22T19:22:10+03:00",
+  "current_step": "research",
   "steps": [
     {
       "id": "intake",
       "title": "Постановка задачи",
-      "status": "in_progress",
+      "status": "done",
       "started": "2026-11-22T19:16:15+03:00",
-      "finished": null,
-      "outputs": [],
+      "finished": "2026-11-22T19:20:51+03:00",
+      "outputs": [
+        "outputs/01-postanovka.md"
+      ],
       "note": ""
     },
     {
       "id": "collect",
       "title": "Сбор материалов",
-      "status": "pending",
-      "started": null,
-      "finished": null,
-      "outputs": [],
+      "status": "done",
+      "started": "2026-11-22T19:21:02+03:00",
+      "finished": "2026-11-22T19:21:56+03:00",
+      "outputs": [
+        "sources.jsonl",
+        "evidence.jsonl",
+        "outputs/02-plan-issledovaniya.md"
+      ],
       "note": ""
     },
     {
       "id": "research",
       "title": "Исследование и картина ситуации",
-      "status": "pending",
-      "started": null,
+      "status": "in_progress",
+      "started": "2026-11-22T19:22:10+03:00",
       "finished": null,
       "outputs": [],
       "note": ""
@@ -87,11 +93,15 @@
       "note": ""
     }
   ],
-  "waiting_for_human": {
-    "question": "Подтвердите постановку и ответьте на вопросы",
-    "options": [],
-    "step": "intake",
-    "since": "2026-11-22T19:17:02+03:00"
-  },
-  "gates": []
+  "waiting_for_human": null,
+  "gates": [
+    {
+      "step": "intake",
+      "question": "Подтвердите постановку и ответьте на вопросы",
+      "options": [],
+      "answer": "Постановка подтверждена. 1) Реальных данных оператора нет: работаем на учебных числах брифа и открытых источниках, недостающие значения — допущения с диапазонами. 2) Нужен полный документ из пяти частей по брифу, где видны продуктовая стратегия, коммуникационная стратегия и план проверки. Продолжать до выбора направления.",
+      "asked": "2026-11-22T19:17:02+03:00",
+      "answered": "2026-11-22T19:19:49+03:00"
+    }
+  ]
 }

@@ -32,7 +32,7 @@ def describe(tool: str, tool_input: dict) -> str:
         return str(tool_input.get("url", ""))
     if tool in ("Read", "Write", "Edit", "MultiEdit", "NotebookEdit"):
         return rel(tool_input.get("file_path") or tool_input.get("notebook_path") or "")
-    if tool == "Bash":
+    if tool in ("Bash", "PowerShell"):
         return str(tool_input.get("command", ""))[:200]
     if tool in ("Agent", "Task"):
         return f"{tool_input.get('subagent_type', '')}: {tool_input.get('description', '')}"

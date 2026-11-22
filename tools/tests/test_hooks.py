@@ -97,6 +97,27 @@ class HookTests(unittest.TestCase):
                                        "tool_response": "Участники группы пользуются общим пакетом интернета."})
         self.assertEqual(out.strip(), "")
 
+    def test_parallel_hooks_do_not_corrupt_journal(self):
+        """Субагенты работают одновременно: 16 хуков пишут в журнал параллельно, строки не перемешиваются."""
+        processes = []
+        for index in range(16):
+            event = {"session_id": "t", "tool_name": "WebSearch",
+                     "tool_input": {"query": f"параллельный запрос номер {index} " + "длинный текст запроса " * 6},
+                     "tool_response": "обычная выдача"}
+            process = subprocess.Popen([sys.executable, str(self.tmp / "tools" / "hooks" / "journal.py")],
+                                       stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                                       cwd=self.tmp, env=self.env)
+            process.stdin.write(json.dumps(event).encode("utf-8"))
+            process.stdin.close()
+            processes.append(process)
+        for process in processes:
+            process.wait(timeout=60)
+        raw = (self.project / "journal.jsonl").read_bytes().decode("utf-8")  # падает, если байты перемешаны
+        rows = [json.loads(line) for line in raw.splitlines() if line.strip()]
+        searches = [row for row in rows if row.get("tool") == "WebSearch"]
+        self.assertEqual(len(searches), 16)
+        self.assertFalse(list(self.project.glob("*.lock")))
+
     def test_session_start_reports_status(self):
         out = self.hook("session_start.py", {"session_id": "t", "hook_event_name": "SessionStart",
                                              "source": "startup"})

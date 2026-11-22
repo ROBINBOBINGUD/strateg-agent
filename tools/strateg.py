@@ -6,10 +6,12 @@ import json
 import math
 import os
 from pathlib import Path
+import random
 import re
 import shutil
 import sys
 import tempfile
+import time
 from uuid import uuid4
 
 
@@ -180,14 +182,66 @@ def records(path: Path) -> list[dict]:
     return [record for _, record in read_rows(path)]
 
 
+def tolerant_records(path: Path, problems: list | None = None) -> list[dict]:
+    """Чтение журнала и расходов: повреждённая строка пропускается и попадает в список замечаний,
+    а не останавливает команду. Реестры источников и утверждений читаются строго (`records`)."""
+    def report(file: Path, line: int, problem: str) -> None:
+        if problems is not None:
+            problems.append(f"{file.name}:{line} — {problem}")
+    return [record for _, record in read_rows(path, report)]
+
+
+class file_lock:
+    """Межпроцессная блокировка файла реестра.
+
+    Хуки Claude Code запускаются отдельными процессами; когда несколько субагентов работают
+    параллельно, они дописывают журнал одновременно. Без блокировки строки JSONL перемешиваются.
+    Блокировка — соседний файл `<имя>.lock`, создаваемый атомарно; зависшая (старше 10 секунд) снимается.
+    """
+
+    def __init__(self, path: Path, timeout: float = 5.0):
+        self.lock = path.with_name(path.name + ".lock")
+        self.timeout = timeout
+        self.held = False
+
+    def __enter__(self):
+        deadline = time.monotonic() + self.timeout
+        while True:
+            try:
+                os.close(os.open(self.lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY))
+                self.held = True
+                return self
+            except FileExistsError:
+                try:
+                    if time.time() - self.lock.stat().st_mtime > 10:
+                        self.lock.unlink(missing_ok=True)
+                        continue
+                except OSError:
+                    continue
+            except OSError:
+                pass
+            if time.monotonic() > deadline:
+                return self  # лучше записать без блокировки, чем потерять событие
+            time.sleep(0.02 + random.random() * 0.03)
+
+    def __exit__(self, *exc):
+        if self.held:
+            try:
+                self.lock.unlink(missing_ok=True)
+            except OSError:
+                pass
+        return False
+
+
 def append_record(path: Path, record: dict) -> None:
     payload = (json_text(record) + "\n").encode("utf-8")
-    with path.open("a+b") as stream:
-        if stream.tell():
-            stream.seek(-1, os.SEEK_END)
-            if stream.read(1) != b"\n":
-                payload = b"\n" + payload
-        stream.write(payload)
+    with file_lock(path):
+        with path.open("a+b") as stream:
+            if stream.tell():
+                stream.seek(-1, os.SEEK_END)
+                if stream.read(1) != b"\n":
+                    payload = b"\n" + payload
+            stream.write(payload)
 
 
 def write_records(path: Path, rows: list[dict]) -> None:
@@ -202,11 +256,13 @@ def append_journal(project: Path, event: dict) -> None:
 def upsert_cost(project: Path, record: dict) -> None:
     path = project / "costs.jsonl"
     session = record["session"]
-    rows = records(path)
-    index = next((index for index, row in enumerate(rows) if row["session"] == session), len(rows))
-    rows = [row for row in rows if row["session"] != session]
-    rows.insert(index, record)
-    write_records(path, rows)
+    record = {"ts": now(), **record}
+    with file_lock(path):
+        rows = tolerant_records(path)
+        index = next((index for index, row in enumerate(rows) if row.get("session") == session), len(rows))
+        rows = [row for row in rows if row.get("session") != session]
+        rows.insert(index, record)
+        write_records(path, rows)
 
 
 def next_id(rows: list[dict], prefix: str) -> str:
@@ -816,7 +872,10 @@ def due_decisions(args) -> None:
 
 
 def show_journal(args) -> None:
-    rows = records(require_project() / "journal.jsonl")
+    problems: list = []
+    rows = tolerant_records(require_project() / "journal.jsonl", problems)
+    for problem in problems:
+        print(f"ПРЕДУПРЕЖДЕНИЕ: пропущена повреждённая строка журнала: {problem}", file=sys.stderr)
     for row in (rows[-args.tail:] if args.tail else []):
         fields = (row[key] for key in ("ts", "session", "event", "tool", "target", "note"))
         print(" | ".join(field for field in fields if field))
@@ -828,7 +887,7 @@ def log_event(args) -> None:
 
 
 def print_cost(args) -> None:
-    rows = records(require_project() / "costs.jsonl")
+    rows = tolerant_records(require_project() / "costs.jsonl")
     print(markdown_table(
         ("Сеанс", "Метка", "Источник", "USD", "Минуты"),
         ((row["session"], row["label"], row["source"], f"{row['cost_usd']:.6f}",

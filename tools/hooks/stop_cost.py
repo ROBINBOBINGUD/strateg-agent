@@ -103,6 +103,7 @@ def main() -> None:
     except Exception:
         pass
     module.upsert_cost(project, {
+        "ts": datetime.now().astimezone().isoformat(timespec="seconds"),
         "session": event.get("session_id", main_path.stem),
         "source": "stop-hook",
         "label": "сеанс Claude Code (оценка по токенам)" + ("" if priced else "; для части моделей нет цены"),

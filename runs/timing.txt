@@ -1,1 +1,2 @@
 zahod-1-postanovka: exit=0, 123 c
+baseline-chat: exit=0, 406 c
