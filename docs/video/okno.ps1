@@ -2,6 +2,7 @@
 $host.UI.RawUI.WindowTitle = 'Strateg-demo'
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 Set-Location (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
+function prompt { 'strateg> ' }   # короткое приглашение: в записи не видно локальных путей
 Clear-Host
 Write-Host ''
 Write-Host '  Стратег: запись демонстрации' -ForegroundColor Cyan
