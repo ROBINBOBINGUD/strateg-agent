@@ -79,11 +79,16 @@ def main() -> None:
     for model, usage in seen.values():
         if model.startswith("<"):
             continue
-        entry = models.setdefault(model, {"input": 0, "output": 0, "cache_read": 0, "cache_write": 0, "cost_usd": 0.0})
+        entry = models.setdefault(model, {"input": 0, "output": 0, "cache_read": 0, "cache_write": 0,
+                                          "cache_write_1h": 0, "cost_usd": 0.0})
         entry["input"] += usage.get("input_tokens", 0) or 0
         entry["output"] += usage.get("output_tokens", 0) or 0
         entry["cache_read"] += usage.get("cache_read_input_tokens", 0) or 0
-        entry["cache_write"] += usage.get("cache_creation_input_tokens", 0) or 0
+        created = usage.get("cache_creation_input_tokens", 0) or 0
+        hour = (usage.get("cache_creation") or {}).get("ephemeral_1h_input_tokens", 0) or 0
+        hour = min(hour, created)
+        entry["cache_write_1h"] += hour          # запись кэша на 1 час стоит дороже
+        entry["cache_write"] += created - hour   # запись кэша на 5 минут
     total = 0.0
     priced = True
     for model, entry in models.items():
@@ -92,7 +97,8 @@ def main() -> None:
             priced = False
             continue
         cost = (entry["input"] * price["input"] + entry["output"] * price["output"]
-                + entry["cache_read"] * price["cache_read"] + entry["cache_write"] * price["cache_write"]) / 1_000_000
+                + entry["cache_read"] * price["cache_read"] + entry["cache_write"] * price["cache_write"]
+                + entry["cache_write_1h"] * price.get("cache_write_1h", price["cache_write"])) / 1_000_000
         entry["cost_usd"] = round(cost, 4)
         total += cost
     duration = 0
