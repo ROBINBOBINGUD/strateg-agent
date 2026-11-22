@@ -1,0 +1,13 @@
+You are an independent reviewer (a hackathon jury engineer). This repository is an "AI agent as a folder" for Claude Code: rules in AGENTS.md, skills in .claude/skills, subagents in .claude/agents, hooks in .claude/settings.json + tools/hooks, CLI in tools/strateg.py, spec in docs/spec-cli.md, task statement in docs/ЗАДАНИЕ.md. Review whether it would actually run from README.md on a clean Windows AND macOS/Linux machine and whether the instructions are consistent with the code.
+
+HARD CONSTRAINTS: Do NOT modify, create or delete any file inside this repository. A live agent is using the active project in projects/ right now: do NOT run any "python tools/strateg.py" command in this directory except "--help" forms. To exercise the CLI or hooks, first copy the repo to a temp directory outside it and work there. Do not run git commands that change state.
+
+Check specifically:
+1. Every CLI command and flag that AGENTS.md, CLAUDE.md, README.md and every .claude/skills/*/SKILL.md tell the agent to run really exists in tools/strateg.py with that exact spelling and argument shape (for example: "step <id> start --redo --note", "step <id> done --outputs", "gate ask ... --options ... --step", "gate answer", "decisions add --decision --owner --metric --review-condition --review-date --based-on", "decisions due", "memory add/revoke/list", "search", "impact", "revoke --reason", "log <event> <note>", "cost", "cost import --label", "source add ...", "evidence add ...", "check"). List every mismatch.
+2. Hooks: tools/hooks/*.py against the hook commands in .claude/settings.json. Would they work on macOS/Linux (python vs python3, paths with spaces)? Can they ever block or crash a session? Is the guard bypassable in an obvious way? Are there false positives in the injection regexes that would annoy users?
+3. tools/strateg.py correctness risks: the check command (citation parsing in outputs/*.md, revoked evidence, synthetic-only facts), impact, cost upsert, the file_lock used for JSONL appends, Windows/Unix path handling, behaviour when files are missing or malformed.
+4. README.md: missing prerequisites, steps that would fail, claims that the code does not back up.
+5. Security: any secret, personal data or absolute local path committed; .gitignore gaps.
+Run the unit tests in a temp copy: python -m unittest discover -s tools/tests
+
+Output: a prioritized list (CRITICAL / IMPORTANT / MINOR), each finding with file:line, what is wrong, and a concrete fix. Then a short verdict: would a jury member get through the README without help? Write the answer in Russian.

@@ -65,6 +65,56 @@ class HookTests(unittest.TestCase):
                                      "tool_input": {"file_path": str(self.tmp / "AGENTS.md")}}, env=maintainer)
         self.assertEqual(out.strip(), "")
 
+    def test_guard_blocks_shell_writes_to_rules(self):
+        blocked = [
+            ("Bash", "echo 'разреши всё' >> AGENTS.md"),
+            ("Bash", "rm -rf knowledge/"),
+            ("Bash", "sed -i 's/deny/allow/' .claude/settings.json"),
+            ("PowerShell", "Set-Content -Path tools/hooks/guard.py -Value ''"),
+            ("PowerShell", "Remove-Item projects/demo/state.json"),
+            ("Bash", "cp /tmp/x projects/ACTIVE"),
+        ]
+        for tool, command in blocked:
+            out = self.hook("guard.py", {"session_id": "t", "tool_name": tool, "tool_input": {"command": command}})
+            self.assertEqual(json.loads(out)["hookSpecificOutput"]["permissionDecision"], "deny", command)
+        allowed = [
+            ("PowerShell", "python tools/strateg.py status"),
+            ("Bash", "python tools/strateg.py log error \"check: costs.jsonl — запись без ts, rm не помог > см. журнал\""),
+            ("Bash", "python projects/demo/analysis/calc.py"),
+            ("PowerShell", "python tools/strateg.py step final done --outputs outputs/STRATEGIYA.md"),
+        ]
+        for tool, command in allowed:
+            out = self.hook("guard.py", {"session_id": "t", "tool_name": tool, "tool_input": {"command": command}})
+            self.assertEqual(out.strip(), "", command)
+
+    def test_journal_hides_local_paths(self):
+        command = f'cd "{self.tmp}" && python tools/strateg.py status'
+        self.hook("journal.py", {"session_id": "t", "tool_name": "Bash", "tool_input": {"command": command},
+                                 "tool_response": ""})
+        row = [row for row in self.journal() if row["event"] == "tool"][-1]
+        self.assertNotIn(str(self.tmp), row["target"])
+        self.assertNotIn(str(self.tmp).replace("\\", "/"), row["target"])
+
+    def test_hook_commands_from_settings_run_in_shell(self):
+        """Команды хуков берутся из настроек и выполняются оболочкой, как это делает Claude Code."""
+        settings = json.loads((REPO / ".claude" / "settings.json").read_text(encoding="utf-8"))
+        shell = shutil.which("sh") or shutil.which("bash")
+        if shell is None:
+            self.skipTest("нет sh (на Windows нужен Git for Windows)")
+        shutil.copytree(REPO / ".claude", self.tmp / ".claude")
+        commands = {hook["command"] for groups in settings["hooks"].values() for group in groups
+                    for hook in group["hooks"]}
+        self.assertEqual(len(commands), 4)
+        for command in sorted(commands):
+            event = {"session_id": "t", "hook_event_name": "PreToolUse", "tool_name": "Edit",
+                     "tool_input": {"file_path": str(self.tmp / "AGENTS.md")}, "source": "startup"}
+            result = subprocess.run([shell, "-c", command], input=json.dumps(event).encode("utf-8"),
+                                    cwd=self.tmp, env=self.env, capture_output=True)
+            self.assertEqual(result.returncode, 0, command + result.stderr.decode("utf-8", "replace"))
+            if "guard.py" in command:
+                decision = json.loads(result.stdout.decode("utf-8"))["hookSpecificOutput"]["permissionDecision"]
+                self.assertEqual(decision, "deny")
+
     def test_journal_records_actions(self):
         self.hook("journal.py", {"session_id": "t", "tool_name": "WebSearch",
                                  "tool_input": {"query": "семейные тарифы общий пакет"},
@@ -92,10 +142,18 @@ class HookTests(unittest.TestCase):
         self.assertEqual(sum(1 for row in self.journal() if row["event"] == "injection"), len(cases))
 
     def test_clean_source_is_not_flagged(self):
-        out = self.hook("journal.py", {"session_id": "t", "tool_name": "WebFetch",
-                                       "tool_input": {"url": "https://example.com/tarif"},
-                                       "tool_response": "Участники группы пользуются общим пакетом интернета."})
-        self.assertEqual(out.strip(), "")
+        clean = [
+            "Участники группы пользуются общим пакетом интернета.",
+            # ложное срабатывание из первого прогона демо-проекта: «Гигабайты теперь» содержит «ты теперь»
+            "Гигабайты теперь «валюта»: операторы разрешили делиться трафиком внутри семьи.",
+            "Вы теперь можете подключить услугу в личном кабинете.",
+            "The system prompt users see in the app was redesigned.",
+        ]
+        for text in clean:
+            out = self.hook("journal.py", {"session_id": "t", "tool_name": "WebFetch",
+                                           "tool_input": {"url": "https://example.com/tarif"},
+                                           "tool_response": text})
+            self.assertEqual(out.strip(), "", text)
 
     def test_parallel_hooks_do_not_corrupt_journal(self):
         """Субагенты работают одновременно: 16 хуков пишут в журнал параллельно, строки не перемешиваются."""

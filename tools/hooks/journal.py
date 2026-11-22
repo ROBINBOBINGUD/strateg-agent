@@ -6,19 +6,20 @@
 import json
 import re
 
-from _common import active_project, emit, read_event, rel, strateg
+from _common import active_project, emit, read_event, rel, scrub, strateg
 
 # Признаки текста, обращённого к ИИ-агенту внутри источника.
 INJECTION_PATTERNS = [
-    r"ignore\s+(all\s+|any\s+)?(the\s+)?(previous|prior|above)\s+(instructions|rules|prompts?)",
-    r"disregard\s+(all\s+|the\s+)?(previous|prior|above)",
-    r"игнорируй(те)?\s+(все\s+)?(предыдущие|прежние|вышеуказанные)?\s*(инструкции|правила|указания)",
-    r"забудь(те)?\s+(все\s+)?(предыдущие\s+)?(инструкции|правила)",
-    r"(you\s+are\s+now|ты\s+теперь|вы\s+теперь)\s+\S+",
-    r"(system\s+prompt|системн(ый|ого)\s+промпт)",
-    r"(as\s+an?\s+ai|как\s+ии[-\s]?(агент|ассистент|модель))\s*,?\s*(you\s+must|ты\s+должен|вы\s+должны)",
-    r"(добавь|впиши|включи)\s+в\s+(отч[её]т|стратегию|вывод|рекомендаци\w+)\s+.{0,80}(не\s+упоминая|без\s+ссылки|обязательно)",
-    r"(измени|перепиши|отредактируй)\s+(файл\s+)?(agents\.md|claude\.md|правила\s+агента)",
+    r"\bignore\s+(all\s+|any\s+)?(the\s+)?(previous|prior|above)\s+(instructions|rules|prompts?)",
+    r"\bdisregard\s+(all\s+|the\s+)?(previous|prior|above)\s+(instructions|rules|prompts?)",
+    r"\bигнорируй(те)?\s+(все\s+)?(предыдущие|прежние|вышеуказанные)?\s*(инструкции|правила|указания)",
+    r"\bзабудь(те)?\s+(все\s+)?(предыдущие\s+)?(инструкции|правила)",
+    # «ты теперь <роль>» — только как отдельные слова и только с ролью ИИ: слово «Гигабайты теперь» сюда не попадает
+    r"\b(you\s+are\s+now|ты\s+теперь|вы\s+теперь)\s+(an?\s+)?(ai|assistant|agent|ии\b|ассистент|агент|модель|бот)",
+    r"\b(reveal|show|print)\s+(your\s+)?system\s+prompt|\b(покажи|раскрой|выведи)\s+(свой\s+)?системн(ый|ого)\s+промпт",
+    r"\b(as\s+an?\s+ai|как\s+ии[-\s]?(агент|ассистент|модель))\s*,?\s*(you\s+must|ты\s+должен|вы\s+должны)",
+    r"\b(добавь|впиши|включи)\s+в\s+(отч[её]т|стратегию|вывод|рекомендаци\w+)\s+.{0,80}(не\s+упоминая|без\s+ссылки|обязательно)",
+    r"\b(измени|перепиши|отредактируй)\s+(файл\s+)?(agents\.md|claude\.md|правила\s+агента)",
 ]
 INJECTION_RE = re.compile("|".join(f"(?:{p})" for p in INJECTION_PATTERNS), re.IGNORECASE)
 SOURCE_TOOLS = {"WebFetch", "WebSearch"}
@@ -33,12 +34,12 @@ def describe(tool: str, tool_input: dict) -> str:
     if tool in ("Read", "Write", "Edit", "MultiEdit", "NotebookEdit"):
         return rel(tool_input.get("file_path") or tool_input.get("notebook_path") or "")
     if tool in ("Bash", "PowerShell"):
-        return str(tool_input.get("command", ""))[:200]
+        return scrub(str(tool_input.get("command", "")))[:200]
     if tool in ("Agent", "Task"):
         return f"{tool_input.get('subagent_type', '')}: {tool_input.get('description', '')}"
     if tool == "Skill":
         return str(tool_input.get("skill", ""))
-    return json.dumps(tool_input, ensure_ascii=False)[:160]
+    return scrub(json.dumps(tool_input, ensure_ascii=False))[:160]
 
 
 def response_text(event: dict) -> str:

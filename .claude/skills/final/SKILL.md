@@ -24,4 +24,4 @@ description: Шаг 8 «Сборка и самопроверка» - собра�
 6. Запиши решения в журнал (по одному на каждое обязательство):
    `python tools/strateg.py decisions add --decision "…" --owner "…" --metric "…" --review-condition "…" --review-date YYYY-MM-DD --based-on E-…,E-…`.
 7. Приёмка: `python tools/strateg.py gate ask "Принять стратегию или вернуть на доработку?" --options "Принять|Доработать" --step final`. Покажи человеку первый экран документа, расходы и время (`python tools/strateg.py cost`) и список открытых возражений. Остановись.
-8. После ответа: `gate answer "…"`. «Принять» → `python tools/strateg.py step final done --outputs outputs/STRATEGIYA.md`, затем коротко: что отслеживать и когда вернуться (процедура `support`). «Доработать» → правка нужного шага с `--redo`.
+8. После ответа: если ответ ещё не записан (в статусе всё ещё стоит вопрос) — `python tools/strateg.py gate answer "…"`. «Принять» → `python tools/strateg.py step final done --outputs outputs/STRATEGIYA.md`, затем коротко: что отслеживать и когда вернуться (процедура `support`). «Доработать» → правка нужного шага с `--redo`.

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 640" font-family="'Segoe UI', 'Noto Sans', Arial, sans-serif" font-size="13" fill="#1c2128">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="1040" height="640" fill="#ffffff"/>
+
+  <!-- человек -->
+  <rect x="20" y="24" width="170" height="92" rx="6" fill="#fbf1ea" stroke="#b5542a" stroke-width="1.4"/>
+  <text x="105" y="52" text-anchor="middle" font-weight="600" font-size="14">Руководитель продукта</text>
+  <text x="105" y="74" text-anchor="middle" fill="#57606a" font-size="12">запрос и материалы</text>
+  <text x="105" y="92" text-anchor="middle" fill="#57606a" font-size="12">три решения по ходу</text>
+
+  <!-- основной агент -->
+  <rect x="230" y="24" width="790" height="176" rx="6" fill="#f3f6f9" stroke="#0b3d5c" stroke-width="1.4"/>
+  <text x="246" y="48" font-weight="600" font-size="14">Основной агент в Claude Code, Codex или Cursor</text>
+  <text x="246" y="67" fill="#57606a" font-size="12">сильная модель: ведёт процесс, пишет постановку, варианты и стратегии</text>
+
+  <g font-size="12" text-anchor="middle">
+    <g fill="#ffffff" stroke="#8c959f">
+      <rect x="330" y="84" width="78" height="44" rx="4"/>
+      <rect x="416" y="84" width="92" height="44" rx="4"/>
+      <rect x="602" y="84" width="92" height="44" rx="4"/>
+      <rect x="702" y="84" width="92" height="44" rx="4"/>
+      <rect x="802" y="84" width="78" height="44" rx="4"/>
+      <rect x="974" y="84" width="38" height="44" rx="4"/>
+    </g>
+    <g fill="#fbf1ea" stroke="#b5542a" stroke-width="1.4">
+      <rect x="244" y="84" width="78" height="44" rx="4"/>
+      <rect x="516" y="84" width="78" height="44" rx="4"/>
+      <rect x="888" y="84" width="78" height="44" rx="4"/>
+    </g>
+    <text x="283" y="102">1 Поста-</text><text x="283" y="118">новка</text>
+    <text x="369" y="102">2 Сбор</text><text x="369" y="118">материалов</text>
+    <text x="462" y="102">3 Исследо-</text><text x="462" y="118">вание</text>
+    <text x="555" y="102">4 Вари-</text><text x="555" y="118">анты</text>
+    <text x="648" y="102">5 Продукт.</text><text x="648" y="118">стратегия</text>
+    <text x="748" y="102">6 Коммуник.</text><text x="748" y="118">стратегия</text>
+    <text x="841" y="102">7 План</text><text x="841" y="118">проверки</text>
+    <text x="927" y="102">8 Сборка,</text><text x="927" y="118">приёмка</text>
+    <text x="993" y="110">9</text>
+  </g>
+  <rect x="246" y="146" width="14" height="14" rx="3" fill="#fbf1ea" stroke="#b5542a" stroke-width="1.4"/>
+  <text x="268" y="158" font-size="12" fill="#57606a">шаг заканчивается решением человека: подтвердить постановку, выбрать направление, принять результат</text>
+  <text x="246" y="184" font-size="12" fill="#57606a">9 — поддержка решения: что решать сейчас, какие основания устарели, пересмотр при новых данных</text>
+
+  <path d="M190 58 H228" stroke="#57606a" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+  <path d="M228 86 H192" stroke="#57606a" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+
+  <!-- левый столбец: правила и знания -->
+  <rect x="20" y="240" width="300" height="118" rx="6" fill="#ffffff" stroke="#8c959f"/>
+  <text x="34" y="263" font-weight="600">Постоянные инструкции</text>
+  <text x="34" y="284" font-size="12">AGENTS.md — правила, единые для всех сред</text>
+  <text x="34" y="302" font-size="12">.claude/skills — 12 процедур шагов</text>
+  <text x="34" y="320" font-size="12">.claude/agents — 4 роли субагентов</text>
+  <text x="34" y="344" font-size="12" fill="#57606a">меняет только человек; хук блокирует правку</text>
+
+  <rect x="20" y="372" width="300" height="82" rx="6" fill="#ffffff" stroke="#8c959f"/>
+  <text x="34" y="395" font-weight="600">Методические знания</text>
+  <text x="34" y="416" font-size="12">knowledge/ — 11 карточек и оглавление</text>
+  <text x="34" y="440" font-size="12" fill="#57606a">агент читает одну карточку на шаг</text>
+
+  <!-- центр: субагенты -->
+  <rect x="350" y="240" width="330" height="214" rx="6" fill="#ffffff" stroke="#8c959f"/>
+  <text x="364" y="263" font-weight="600">Субагенты: отдельный контекст на узкую задачу</text>
+  <g font-size="12">
+    <rect x="364" y="276" width="302" height="36" rx="4" fill="#f3f6f9" stroke="#c4ccd4"/>
+    <text x="374" y="299"><tspan font-weight="600">researcher</tspan> · Sonnet · источники по одному вопросу</text>
+    <rect x="364" y="318" width="302" height="36" rx="4" fill="#f3f6f9" stroke="#c4ccd4"/>
+    <text x="374" y="341"><tspan font-weight="600">analyst</tspan> · Sonnet · расчёт скриптом, диапазоны</text>
+    <rect x="364" y="360" width="302" height="36" rx="4" fill="#f3f6f9" stroke="#c4ccd4"/>
+    <text x="374" y="383"><tspan font-weight="600">critic</tspan> · сильная модель · возражения</text>
+    <rect x="364" y="402" width="302" height="36" rx="4" fill="#f3f6f9" stroke="#c4ccd4"/>
+    <text x="374" y="425"><tspan font-weight="600">respondent</tspan> · Haiku · синтетическое интервью</text>
+  </g>
+
+  <!-- правый столбец: CLI -->
+  <rect x="710" y="240" width="310" height="214" rx="6" fill="#ffffff" stroke="#0b3d5c" stroke-width="1.4"/>
+  <text x="724" y="263" font-weight="600">tools/strateg.py — без модели</text>
+  <g font-size="12">
+    <text x="724" y="286">status, step, gate — состояние и решения человека</text>
+    <text x="724" y="306">check — у каждой ссылки есть источник</text>
+    <text x="724" y="326">impact, revoke — что затронут новые данные</text>
+    <text x="724" y="346">decisions due — что пора пересмотреть</text>
+    <text x="724" y="366">journal, cost — что сделано и сколько стоило</text>
+    <text x="724" y="386">search, memory — знания и память</text>
+  </g>
+  <text x="724" y="414" font-size="12" fill="#57606a">состояние меняет только CLI: новый чат</text>
+  <text x="724" y="431" font-size="12" fill="#57606a">продолжает с сохранённого шага</text>
+
+  <!-- стрелки от агента вниз -->
+  <path d="M300 200 V238" stroke="#57606a" stroke-width="1.3" fill="none" marker-start="url(#a)"/>
+  <path d="M515 200 V238" stroke="#57606a" stroke-width="1.3" fill="none" marker-start="url(#a)" marker-end="url(#a)"/>
+  <path d="M865 200 V238" stroke="#57606a" stroke-width="1.3" fill="none" marker-start="url(#a)" marker-end="url(#a)"/>
+
+  <!-- хуки -->
+  <rect x="20" y="474" width="1000" height="40" rx="6" fill="#f3f6f9" stroke="#c4ccd4"/>
+  <text x="34" y="499" font-size="12.5"><tspan font-weight="600">Хуки:</tspan> старт сеанса передаёт статус · защита правил и состояния · журнал действий · проверка источников на встроенные команды · учёт стоимости</text>
+
+  <!-- проект -->
+  <rect x="20" y="534" width="1000" height="86" rx="6" fill="#ffffff" stroke="#8c959f"/>
+  <text x="34" y="557" font-weight="600">projects/&lt;id&gt;/ — одна задача руководителя</text>
+  <g font-size="12" text-anchor="middle">
+    <g fill="#f3f6f9" stroke="#c4ccd4">
+      <rect x="34" y="568" width="150" height="38" rx="4"/>
+      <rect x="194" y="568" width="210" height="38" rx="4"/>
+      <rect x="414" y="568" width="150" height="38" rx="4"/>
+      <rect x="574" y="568" width="130" height="38" rx="4"/>
+      <rect x="714" y="568" width="130" height="38" rx="4"/>
+      <rect x="854" y="568" width="152" height="38" rx="4"/>
+    </g>
+    <text x="109" y="584">materials/</text><text x="109" y="599" fill="#57606a">исходные материалы</text>
+    <text x="299" y="584">sources.jsonl · evidence.jsonl</text><text x="299" y="599" fill="#57606a">источники и утверждения</text>
+    <text x="489" y="584">outputs/</text><text x="489" y="599" fill="#57606a">результаты шагов</text>
+    <text x="639" y="584">analysis/</text><text x="639" y="599" fill="#57606a">расчёты</text>
+    <text x="779" y="584">decisions.jsonl</text><text x="779" y="599" fill="#57606a">журнал решений</text>
+    <text x="930" y="584">state · journal · costs</text><text x="930" y="599" fill="#57606a">состояние задачи</text>
+  </g>
+</svg>

@@ -2,8 +2,8 @@
   "id": "family-multisim",
   "title": "Связь для близких и собственных устройств: кому помогать первым и стоит ли пилот",
   "created": "2026-11-22T19:16:04+03:00",
-  "updated": "2026-11-22T19:22:10+03:00",
-  "current_step": "research",
+  "updated": "2026-11-22T19:36:55+03:00",
+  "current_step": "options",
   "steps": [
     {
       "id": "intake",
@@ -32,17 +32,21 @@
     {
       "id": "research",
       "title": "Исследование и картина ситуации",
-      "status": "in_progress",
+      "status": "done",
       "started": "2026-11-22T19:22:10+03:00",
-      "finished": null,
-      "outputs": [],
+      "finished": "2026-11-22T19:27:55+03:00",
+      "outputs": [
+        "outputs/02-plan-issledovaniya.md",
+        "outputs/03-kartina-situacii.md",
+        "evidence.jsonl"
+      ],
       "note": ""
     },
     {
       "id": "options",
       "title": "Варианты",
-      "status": "pending",
-      "started": null,
+      "status": "in_progress",
+      "started": "2026-11-22T19:28:33+03:00",
       "finished": null,
       "outputs": [],
       "note": ""
@@ -93,7 +97,19 @@
       "note": ""
     }
   ],
-  "waiting_for_human": null,
+  "waiting_for_human": {
+    "question": "Какой вариант берём в стратегию?",
+    "options": [
+      "A как есть",
+      "B сигнал+приглашение (рекомендую)",
+      "C кабинет",
+      "D владельцы",
+      "E привлечение",
+      "F заморозка"
+    ],
+    "step": "options",
+    "since": "2026-11-22T19:36:55+03:00"
+  },
   "gates": [
     {
       "step": "intake",

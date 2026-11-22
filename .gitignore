@@ -20,5 +20,8 @@ node_modules/
 *.tmp
 tmp/
 runs/raw/
+docs/video/raw/
+docs/build/_*.html
+*.lock
 .DS_Store
 Thumbs.db

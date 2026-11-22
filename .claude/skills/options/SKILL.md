@@ -33,4 +33,4 @@ description: Шаг 4 «Варианты» - предложить не мень�
 
 6. `python tools/strateg.py check`.
 7. Выбор направления делает человек: `python tools/strateg.py gate ask "Какой вариант берём в стратегию?" --options "A|B|C|D" --step options`. Покажи сравнение и рекомендацию (до 15 строк) и остановись.
-8. После ответа: `gate answer "…"`, допиши в файл раздел «Решение человека» (что выбрано и с какими оговорками), `python tools/strateg.py step options done --outputs outputs/04-varianty.md`.
+8. После ответа: если ответ ещё не записан (в статусе всё ещё стоит вопрос) — `python tools/strateg.py gate answer "…"`. Допиши в файл раздел «Решение человека» (что выбрано и с какими оговорками), `python tools/strateg.py step options done --outputs outputs/04-varianty.md`.

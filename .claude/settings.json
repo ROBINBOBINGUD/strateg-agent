@@ -4,16 +4,18 @@
     "allow": [
       "Bash(python tools/strateg.py *)",
       "Bash(python3 tools/strateg.py *)",
-      "Bash(python projects/*)",
-      "Bash(python3 projects/*)",
+      "Bash(python projects/*/analysis/*.py)",
+      "Bash(python3 projects/*/analysis/*.py)",
       "PowerShell(python tools/strateg.py *)",
-      "PowerShell(python projects/*)",
+      "PowerShell(python projects/*/analysis/*.py)",
       "WebSearch",
       "WebFetch"
     ],
     "deny": [
       "Read(./.env)",
-      "Read(./.env.*)"
+      "Read(./.env.*)",
+      "Read(./**/.env)",
+      "Read(./**/.env.*)"
     ]
   },
   "hooks": {
@@ -22,7 +24,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"${CLAUDE_PROJECT_DIR}/tools/hooks/session_start.py\" 2>/dev/null || python3 \"${CLAUDE_PROJECT_DIR}/tools/hooks/session_start.py\"",
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/tools/hooks/run.sh\" session_start.py",
             "timeout": 20
           }
         ]
@@ -30,11 +32,11 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit|Bash|PowerShell",
         "hooks": [
           {
             "type": "command",
-            "command": "python \"${CLAUDE_PROJECT_DIR}/tools/hooks/guard.py\" 2>/dev/null || python3 \"${CLAUDE_PROJECT_DIR}/tools/hooks/guard.py\"",
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/tools/hooks/run.sh\" guard.py",
             "timeout": 20
           }
         ]
@@ -44,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"${CLAUDE_PROJECT_DIR}/tools/hooks/stop_cost.py\" 2>/dev/null || python3 \"${CLAUDE_PROJECT_DIR}/tools/hooks/stop_cost.py\"",
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/tools/hooks/run.sh\" stop_cost.py",
             "timeout": 30
           }
         ]
@@ -56,7 +58,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"${CLAUDE_PROJECT_DIR}/tools/hooks/journal.py\" 2>/dev/null || python3 \"${CLAUDE_PROJECT_DIR}/tools/hooks/journal.py\"",
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/tools/hooks/run.sh\" journal.py",
             "timeout": 20
           }
         ]
@@ -67,7 +69,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"${CLAUDE_PROJECT_DIR}/tools/hooks/stop_cost.py\" 2>/dev/null || python3 \"${CLAUDE_PROJECT_DIR}/tools/hooks/stop_cost.py\"",
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/tools/hooks/run.sh\" stop_cost.py",
             "timeout": 30
           }
         ]

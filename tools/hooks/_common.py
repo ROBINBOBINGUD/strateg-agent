@@ -1,6 +1,7 @@
 """Общие функции хуков. Хуки никогда не должны ронять сеанс: любая ошибка -> тихий выход 0."""
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -50,6 +51,20 @@ def emit(payload: dict) -> None:
     sys.stdout.flush()
 
 
+def scrub(text: str) -> str:
+    """Убирает из текста абсолютный путь к репозиторию и домашнюю папку: в журнал они не попадают."""
+    if not text:
+        return ""
+    result = str(text)
+    roots = [str(ROOT), os.environ.get("CLAUDE_PROJECT_DIR", "")]
+    homes = [str(Path.home()), os.environ.get("USERPROFILE", ""), os.environ.get("HOME", "")]
+    for marker, group in ((".", roots), ("~", homes)):
+        for raw in sorted({value for value in group if len(value) > 3}, key=len, reverse=True):
+            for variant in {raw, raw.replace("\\", "/"), raw.replace("\\", "\\\\")}:
+                result = re.sub(re.escape(variant), lambda _match: marker, result, flags=re.IGNORECASE)
+    return result
+
+
 def rel(path_text: str) -> str:
     """Путь относительно корня репозитория с прямыми слэшами (для журнала и проверок)."""
     if not path_text:
@@ -57,4 +72,4 @@ def rel(path_text: str) -> str:
     try:
         return Path(path_text).resolve().relative_to(ROOT).as_posix()
     except Exception:
-        return str(path_text).replace("\\", "/")
+        return scrub(path_text).replace("\\", "/")

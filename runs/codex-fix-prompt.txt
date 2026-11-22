@@ -1,0 +1,27 @@
+You previously reviewed this repository. Now fix the CLI findings. Edit ONLY tools/strateg.py and tools/tests/test_strateg.py (you may add new test methods). Do not touch any other file. Do not run git commands. Do not run "python tools/strateg.py" in this directory except "--help" forms and do not modify anything under projects/ here: exercise the CLI only through the unit tests (they work in temp directories). Keep Python 3.10+ standard library only, keep every existing command, flag and importable function (find_root, active_project, append_journal, status_text, upsert_cost, file_lock, tolerant_records) working with the same signatures. User-facing messages stay in Russian. After editing run: python -m unittest discover -s tools/tests  (tools/tests/test_hooks.py must stay green too) and iterate until everything passes.
+
+Required changes:
+
+A. Step transitions (command "step"):
+  - "done" is allowed only from status in_progress; otherwise error (exit 2) that names the current status.
+  - every path in --outputs must exist relative to the project directory; list the missing ones and fail.
+  - "start" for any step is refused while waiting_for_human is set for a DIFFERENT step (tell the user to answer the open question first).
+  - a step that was ever finished (finished is not null) needs --redo to be started again, also after "block".
+B. "gate answer" when nothing is waiting: do not fail. Print a message that there is no open question and show the last recorded answer (from gates history), exit 0. This makes a duplicated call harmless.
+C. "check":
+  - ignore citations inside fenced code blocks (``` ... ```) and inside inline code spans (`...`).
+  - accept "," and ";" as separators in a citation list: [E-001, E-002], [E-001; S-003].
+  - report malformed markers that look like citations but are not valid ids ([E-99], [S-1], [E-0001x]) as errors.
+  - decisions.jsonl: every id in based_on must exist in evidence.jsonl (error if missing).
+  - synthetic rule: if a paragraph in outputs/*.md cites an evidence item of kind synthetic or a source of type synthetic, the same paragraph must contain the substring "синтет" (case-insensitive); otherwise it is an error ("синтетика без пометки").
+  - a missing registry file (sources.jsonl, evidence.jsonl, decisions.jsonl) is an error naming the file; an invalid state.json must name the exact problem.
+  - a corrupted line in journal.jsonl or costs.jsonl is a WARNING (not an error) with file:line.
+  - regenerate sources.md / evidence.md / STATUS.md only when the registries parsed without errors.
+D. "impact <id>": unknown id -> error exit 2. "search": do not return revoked evidence, or mark it "(отозвано)". "decisions due": consider only decisions with status active, and treat review_date <= today as due.
+E. Locking: make whole read-modify-write cycles atomic with file_lock: source add (including the duplicate-ref check and id allocation), evidence add, revoke, decisions add, memory add/revoke, and every state.json update (step, gate, new). For these CLI paths a lock timeout must raise CliError asking to retry (never write without the lock). append_journal stays best-effort (on timeout it still writes) because hooks must not lose events or block a session. Raise the stale-lock takeover threshold to 30 seconds.
+F. Costs: upsert_cost must not replace an existing record whose source is "headless" with a record whose source is "stop-hook" for the same session (keep the exact imported cost); a "headless" record always replaces a "stop-hook" one. Never drop unparsable lines when rewriting costs.jsonl: keep them byte-for-byte. "cost import" must refuse a result JSON with is_error true unless --force is given, and must fail clearly on a missing or invalid file. "status" and "cost" must not crash on a corrupted costs line (skip it and print a warning to stderr).
+G. find_root(): if CLAUDE_PROJECT_DIR is set and contains AGENTS.md use it; otherwise use the directory two levels above this script if it contains AGENTS.md; otherwise fall back to the nearest parent of the current directory with AGENTS.md. This makes the CLI work from any subfolder when called by path.
+H. Project ids for "new": must match ^[a-z0-9][a-z0-9-]{0,39}$ and must not collide case-insensitively with an existing project directory.
+I. Privacy: in append_journal, replace the absolute repository root path (both slash styles, case-insensitive) with "." inside the "target" and "note" fields before writing.
+
+Add or update unit tests for every item A-I. Finish with a short summary in Russian: what changed, the number of tests, and anything you could not do.
