@@ -1,4 +1,4 @@
-# Остановка записи демонстрации, начатой docs/video/start.ps1.
+﻿# Остановка записи демонстрации, начатой docs/video/start.ps1.
 # Запись идёт в контейнер Matroska: он остаётся читаемым, даже если процесс завершён принудительно.
 param([string]$Repo = (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)))
 $info = Get-Content (Join-Path $Repo 'docs\video\raw\zapis.json') -Raw -Encoding UTF8 | ConvertFrom-Json
